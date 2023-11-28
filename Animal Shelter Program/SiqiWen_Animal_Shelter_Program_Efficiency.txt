@@ -1,0 +1,25 @@
+Efficiency Writeup
+Siqi Wen CS163    Prog3-4
+
+
+This is an Animal Shelter program. In this program, the user will be able to insert a new animal into the system; all matches of a particular type and breed; find a particular animal based on their breed and name; display all animals in sorted order by their breed and name; remove an animal that’s no longer available for fostering. Moreover, when the user runs the program, a file that contains animals info will be loaded automatically, therefore, we can have access to the pre-saved data about animals from this program.
+
+
+In this program, I created two classes and two structs:
+
+class animal that contains some member functions( functions that can be called in other functions so that the program can have access to those private data members in this class) and private data members (type, breed, name … );
+struct node_chain which contains an animal pointer and a next pointer;
+struct node_BST which contains an animal pointer, a left pointer and a right pointer;
+class table that contains some member functions (functions that deal with inserting, retrieving, removing data into both hash table or BST or both, these functions might need to call the member functions in class animal to access private data members in animal) and private data members: a pointer to a pointer to node_chain; an integer representing the hash table size; a root pointer to the node_BST. In the private section, there are also some private member functions, these functions are mostly recursive functions that we use to deal with data in the binary search tree. With using recursive functions, we will pass the root pointer as an argument by reference, that way, we will be able to modify the binary search tree easily. And we put these recursive functions in the private section is because we don’t want the client program to worry about what data structure we used for this program. All the client program needs to do is to call the functions in public sections in two classes, which will call the recursive functions in the private section in class table.
+
+
+In this program, the two data structures I used are:
+hash table using chaining as the collision resolution technique;
+A binary search tree.
+
+As for the hash table using chaining as the collision resolution technique, the great advantage is that we can get O(1) performance for insertion. For retrieval and removal, in the best case, the performance would be O(1), in the worst case, the performance would be O(chain_length). (Shouldn’t be O(N) because we assume that our hash function wouldn’t be that bad so there wouldn’t be collision for every single item.)
+However, the down side for using a hash table with chaining is that we wouldn’t be able to access the data in sorted order, which means we need other data structure to make up to this.
+
+A binary search tree is a great data structure, it can have decent performance and it will allow us to access the data in sorted order. However, the order in which the data is inserted is really important, if the data was inserted in sorted order, then a horrible thing would happen: the BST would look like a linear linked list, what is even worse is that each node would have one more extra pointer since each BST node has a left and a right pointer. So depending on the order in which the data was inserted, the efficiency can be anywhere between O(log2N) to as bad as O(N) performance. So Using a hash table and a binary search tree in the same project will allow us to experience the strengths of both without the weaknesses.
+
+
